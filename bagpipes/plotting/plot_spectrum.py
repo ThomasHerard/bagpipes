@@ -24,7 +24,8 @@ def add_spectrum(spectrum, ax, x_ticks=None, zorder=4, z_non_zero=True,
 
     if y_scale is None:
         y_scale = int(np.log10(ymax))-1
-
+    y_scale = float(y_scale)
+    
     ax.set_ylim(0., ymax*10**-y_scale)
     ax.set_xlim(spectrum[0, 0], spectrum[-1, 0])
 
@@ -39,10 +40,10 @@ def add_spectrum(spectrum, ax, x_ticks=None, zorder=4, z_non_zero=True,
     elif spectrum.shape[1] == 3:
         if color == "default":
             color = "dodgerblue"
-
+ 
         ax.plot(spectrum[:, 0], spectrum[:, 1]*10**-y_scale,
                 color=color, zorder=zorder, lw=lw, label=label, alpha=alpha)
-
+        
         lower = (spectrum[:, 1] - spectrum[:, 2])*10**-y_scale
         upper = (spectrum[:, 1] + spectrum[:, 2])*10**-y_scale
 
@@ -62,4 +63,4 @@ def add_spectrum(spectrum, ax, x_ticks=None, zorder=4, z_non_zero=True,
     # Sort out axis labels.
     auto_axis_label(ax, y_scale, z_non_zero=z_non_zero)
 
-    return y_scale
+    return int(y_scale)
